@@ -1,4 +1,64 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
+
+<div class="card" style="width: 35rem;">
+  <h4 class="display-4"></h4>
+  <p></p>
+</div>
+
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card text-white bg-secondary mb-3">
+      <div class="card-body">
+        <img src="{{debaser.imageURL}}" class="card-img-top" alt="">
+        <h5 class="card-title">{{debaser.event}}</h5>
+        <p class="lead">{{debaser.subhead}}</p>
+        <p class="card-text">{{debaser.description[0:500]}}...</p>
+        <a href="{{debaser.eventURL}}">Läs mer här</a>
+        <p>{{debaser.admission}}</p>
+        <a class= "btn btn-primary btn-lg" href="{{debaser.ticketURL}}">Köp biljetter här</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="card text-white bg-secondary mb-3">
+      <div class="card-body">
+        <h5 class="card-title">SL resa 1</h5>
+        <p class="card-text">Tåg: {{sls[0]['TrainNumber']}}</p>
+        <p class="card-text">Från: {{sls[0]['From']}}</p>
+        <p class="card-text">Mot: {{sls[0]['Destination']}}</p>
+        <p class="card-text">Avgång: {{sls[0]['Departs']}}</p>
+        <a href="http://www.sl.se" class="btn btn-primary">SL</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-4">
+    <div class="card text-white bg-secondary mb-3">
+      <div class="card-body">
+        <h5 class="card-title">SL resa 2</h5>
+        <p class="card-text">Tåg: {{sls[1]['TrainNumber']}}</p>
+        <p class="card-text">Från: {{sls[1]['From']}}</p>
+        <p class="card-text">Mot: {{sls[1]['Destination']}}</p>
+        <p class="card-text">Avgång: {{sls[1]['Departs']}}</p>
+        <a href="http://www.sl.se" class="btn btn-primary">SL</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="card text-white bg-secondary mb-3">
+      <div class="card-body">
+        <h5 class="card-title">The weather</h5>
+        <p class="card-text">The weather in {{weather.ort}} is {{weather.status.lower()}} and it is {{weather.temp}} outside.</p>
+        <a href="http://www.smhi.se" class="btn btn-primary">SMHI</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 {% endblock %}
