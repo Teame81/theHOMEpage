@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request
 import requests
+from myAPIkeys import TheKeys
 
 
 def nasa():
-    r = requests.get('https://api.nasa.gov/planetary/apod?api_key=guUzeBngvwFQiTce7FqXEPPbF6adbsnGf4tjairz')
+    r = requests.get(f'https://api.nasa.gov/planetary/apod?api_key={TheKeys.nasa}')
     theDict = {'date': r.json()['date'],
                'explanation': r.json()['explanation'],
                'hdURL': r.json()['hdurl'],
@@ -33,7 +34,7 @@ class Debaser():
 
 class Weather():
     def __init__(self):
-        r = requests.get('https://api.openweathermap.org/data/2.5/weather?q=Stockholm,se&appid=7e2e6f241ccc55c7ab4914d416f2eea7')
+        r = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q=Stockholm,se&appid={TheKeys.weather}')
         self.status = r.json()['weather'][0]['main']
         temp = r.json()['main']['temp']
         x = float(temp-272.15)
@@ -50,7 +51,7 @@ def time():
     return theDict
 
 def sl():
-    r = requests.get('http://api.sl.se/api2/realtimedeparturesV4.json?key=016287db39614ed1a91365891e96af11&siteid=9528&timewindow=30')
+    r = requests.get(f'http://api.sl.se/api2/realtimedeparturesV4.json?key={TheKeys.sl}&timewindow=30')
     json_obj1 = r.json()['ResponseData']['Trains'][0]
     json_obj2 = r.json()['ResponseData']['Trains'][1]
     resa1 = {
