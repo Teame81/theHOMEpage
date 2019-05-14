@@ -1,6 +1,17 @@
 from flask import Flask, render_template, request
 import requests
 
+
+def nasa():
+    r = requests.get('https://api.nasa.gov/planetary/apod?api_key=guUzeBngvwFQiTce7FqXEPPbF6adbsnGf4tjairz')
+    theDict = {'date': r.json()['date'],
+               'explanation': r.json()['explanation'],
+               'hdURL': r.json()['hdurl'],
+               'title': r.json()['title'],
+               'url': r.json()['url']
+               }
+    return theDict
+
 class Debaser():
     def __init__(self):
         tempdate = time()
