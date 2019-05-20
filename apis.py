@@ -2,12 +2,16 @@ from flask import Flask, render_template, request
 import requests
 from myAPIkeys import TheKeys
 
+appSecretKey = 'asdada!1231231ASdsadasSAdkiy324'
+
+
 
 def nasa():
     r = requests.get(f'https://api.nasa.gov/planetary/apod?api_key={TheKeys.nasa}')
+
     theDict = {'date': r.json()['date'],
                'explanation': r.json()['explanation'],
-               'hdURL': r.json()['hdurl'],
+               'media_type': r.json()['media_type'],
                'title': r.json()['title'],
                'url': r.json()['url']
                }
@@ -18,19 +22,27 @@ class Debaser():
         tempdate = time()
         toDay = tempdate['date']
         toDay = ''.join(e for e in toDay if e.isalnum())
+        toDay3 = int(toDay) + 3
         r = requests.get(f'http://www.debaser.se/debaser/api/?version=2&method=getevents&venue=&from={toDay}&to={toDay}&format=json')
-        self.event = r.json()[0]['Event']
-        self.subhead = r.json()[0]['SubHead']
-        self.description = r.json()[0]['Description']
-        self.open = r.json()[0]['Open']
-        self.admission = r.json()[0]['Admission']
-        self.ticketURL = r.json()[0]['TicketUrl']
-        self.imageURL = r.json()[0]['ImageUrl']
-        self.eventURL = r.json()[0]['EventUrl']
-        #theDict = {'event': event, 'subhead': subhead, 'description': description,
-        #    'open': open, 'admission': admission, 'ticketURL': ticketURL,
-        #    'imageURL': imageURL, 'eventURL': eventURL}
 
+        if r.text != "":
+            self.event = r.json()[0]['Event']
+            self.subhead = r.json()[0]['SubHead']
+            self.description = r.json()[0]['Description']
+            self.open = r.json()[0]['Open']
+            self.admission = r.json()[0]['Admission']
+            self.ticketURL = r.json()[0]['TicketUrl']
+            self.imageURL = r.json()[0]['ImageUrl']
+            self.eventURL = r.json()[0]['EventUrl']
+        else:
+            self.event = 'No event today.'
+            self.subhead = 'No event today.'
+            self.description = 'No event today.'
+            self.open = 'No event today.'
+            self.admission = 'No event today.'
+            self.ticketURL = 'http://www.aik.se'
+            self.imageURL = ''
+            self.eventURL = 'http://www.aik.se'
 
 class Weather():
     def __init__(self):
