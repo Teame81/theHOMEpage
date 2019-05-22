@@ -1,7 +1,7 @@
 myAPIkeys.py
 test.py
 data.sqlite
-.sqlite
+*.sqlite
 migrations/
 __pycache__/
 *.pyc

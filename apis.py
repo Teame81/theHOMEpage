@@ -7,7 +7,7 @@ appSecretKey = 'asdada!1231231ASdsadasSAdkiy324'
 
 
 def nasa():
-    r = requests.get(f'https://api.nasa.gov/planetary/apod?api_key={TheKeys.nasa}')
+    r = requests.get('https://api.nasa.gov/planetary/apod?api_key={}'.format(TheKeys.nasa))
 
     theDict = {'date': r.json()['date'],
                'explanation': r.json()['explanation'],
@@ -23,7 +23,7 @@ class Debaser():
         toDay = tempdate['date']
         toDay = ''.join(e for e in toDay if e.isalnum())
         toDay3 = int(toDay) + 3
-        r = requests.get(f'http://www.debaser.se/debaser/api/?version=2&method=getevents&venue=&from={toDay}&to={toDay}&format=json')
+        r = requests.get('http://www.debaser.se/debaser/api/?version=2&method=getevents&venue=&from={}&to={}&format=json'.format(toDay, toDay))
 
         if r.text != "":
             self.event = r.json()[0]['Event']
@@ -46,7 +46,7 @@ class Debaser():
 
 class Weather():
     def __init__(self):
-        r = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q=Stockholm,se&appid={TheKeys.weather}')
+        r = requests.get('https://api.openweathermap.org/data/2.5/weather?q=Stockholm,se&appid={}'.format(TheKeys.weather))
         self.status = r.json()['weather'][0]['main']
         temp = r.json()['main']['temp']
         x = float(temp-272.15)
@@ -63,7 +63,7 @@ def time():
     return theDict
 
 def sl():
-    r = requests.get(f'http://api.sl.se/api2/realtimedeparturesV4.json?key={TheKeys.sl}&timewindow=30')
+    r = requests.get('http://api.sl.se/api2/realtimedeparturesV4.json?key={}&timewindow=30'.format(TheKeys.sl))
     json_obj1 = r.json()['ResponseData']['Trains'][0]
     json_obj2 = r.json()['ResponseData']['Trains'][1]
     resa1 = {

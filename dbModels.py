@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from myAPIkeys import TheKeys, appSecretKey
+from myAPIkeys import appSecretKey
 from flask_migrate import Migrate
 
 
@@ -26,8 +26,8 @@ class TimmieHome(db.Model):
 
     def __repr__(self):
         if self.home_or_not == True:
-            return f"Timmie is home!"
+            return "Timmie is home!"
         elif self.home_or_not == False:
-            return f"Timmie is away!"
+            return "Timmie is away!"
         else:
-            return f"No input yet"
+            return "No input yet"
