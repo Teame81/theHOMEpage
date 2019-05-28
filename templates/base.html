@@ -24,9 +24,11 @@
           <a class="nav-link" href="#">Link</a>
 
       </ul>
-      <p>Klockan: {{timedate['time']}}</p>
-      <br><br>
-      <p>Datum: {{timedate['date']}}</p>
+      <div class="">
+        <p>Klockan: {{timedate['time']}}</p>
+        <p>Datum: {{timedate['date']}}</p>
+      </div>
+
     </nav>
     {% block content %}
 

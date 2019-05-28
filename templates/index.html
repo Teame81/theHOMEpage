@@ -71,15 +71,18 @@
   <div class="col-sm-4">
     <div class="card text-white bg-secondary mb-3">
       <div class="card-body">
-        <h5 class="card-title">{{nasaPic['title']}}</h5>
-        {% if nasaPic['media_type'] == 'video' %}
-        <iframe width="420" height="315" src="{{nasaPic['url']}}">
-        </iframe>
+        {% if nasaPic['media_type'] != 'error' %}
+            <h5 class="card-title">{{nasaPic['title']}}</h5>
+            {% if nasaPic['media_type'] == 'video' %}
+              <iframe width="420" height="315" src="{{nasaPic['url']}}">
+              </iframe>
+            {% else %}
+              <img src="{{nasaPic['url']}}" class="card-img-top" alt="">
+              {% endif %}
         {% else %}
-        <img src="{{nasaPic['url']}}" class="card-img-top" alt="">
+            <h5 class="card-title">{{nasaPic['title']}}</h5>
         {% endif %}
-
-
+        
         <p class="card-text">{{nasaPic['explanation']}}</p>
         <a href="http://www.nasa.gov" class="btn btn-primary">NASA</a>
       </div>

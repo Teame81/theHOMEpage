@@ -8,11 +8,18 @@ appSecretKey = 'asdada!1231231ASdsadasSAdkiy324'
 
 def nasa():
     r = requests.get('https://api.nasa.gov/planetary/apod?api_key={}'.format(TheKeys.nasa))
-    theDict = {'explanation': r.json()['explanation'],
-                'media_type': r.json()['media_type'],
-                'title': r.json()['title'],
-                'url': r.json()['url']
-                }
+    if r != '{}':
+        theDict = {'explanation': r.json()['explanation'],
+                    'media_type': r.json()['media_type'],
+                    'title': r.json()['title'],
+                    'url': r.json()['url']
+                    }
+    else:
+        theDict = {'explanation': 'An error has occurred at nasas homepage.',
+                    'media_type': 'error',
+                    'title': 'Error!',
+                    'url': 'NO ADRESS'
+                    }
     return theDict
 
 class Debaser():
