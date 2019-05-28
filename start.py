@@ -1,9 +1,10 @@
+﻿# -*- coding: utf-8 -*-
 from flask import (Flask, render_template, request, url_for, redirect)
 from apis import (sl, chuck, time, Weather, Debaser,nasa,appSecretKey)
-import requests
 from decimal import Decimal
 from dbModels import TimmieHome , db, Migrate, app
 from forms import TimmieForm
+from sqlalchemy import desc
 
 #app = Flask(__name__)
 app.config['SECRET_KEY'] = appSecretKey
@@ -28,7 +29,11 @@ def index():
         print(form.errors)
 
     isTimmieHome = TimmieHome.query.all()
-    isTimmieHome = isTimmieHome[-1]
+    if str(isTimmieHome) != '[]':
+        isTimmieHome = isTimmieHome[-1]
+    else:
+        isTimmieHome = 'Ingen vet vart Timmie ar nu :-O'
+
     debaser = Debaser()
     weather = Weather()
     timedate = time()
@@ -41,4 +46,3 @@ def index():
 
 if __name__ == '__main__':
     app.run(debug = True)
-#{{sl[0]['TrainNumber']}}

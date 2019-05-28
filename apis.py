@@ -1,20 +1,18 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, render_template, request
 import requests
 from myAPIkeys import TheKeys
 
+
 appSecretKey = 'asdada!1231231ASdsadasSAdkiy324'
-
-
 
 def nasa():
     r = requests.get('https://api.nasa.gov/planetary/apod?api_key={}'.format(TheKeys.nasa))
-
-    theDict = {'date': r.json()['date'],
-               'explanation': r.json()['explanation'],
-               'media_type': r.json()['media_type'],
-               'title': r.json()['title'],
-               'url': r.json()['url']
-               }
+    theDict = {'explanation': r.json()['explanation'],
+                'media_type': r.json()['media_type'],
+                'title': r.json()['title'],
+                'url': r.json()['url']
+                }
     return theDict
 
 class Debaser():
@@ -51,7 +49,7 @@ class Weather():
         temp = r.json()['main']['temp']
         x = float(temp-272.15)
         temp = round(x,2)
-        self.temp = str(temp) + ' °C'
+        self.temp = str(temp) + '\N{DEGREE SIGN} C'
         self.ort = r.json()['name']
 
 def time():
