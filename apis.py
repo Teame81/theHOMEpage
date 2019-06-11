@@ -5,15 +5,18 @@ from myAPIkeys import TheKeys
 
 
 appSecretKey = 'asdada!1231231ASdsadasSAdkiy324'
-
+#Nasas api. Here im getting information from Nasa
 def nasa():
+    # the request function below gets the information from the api
     r = requests.get('https://api.nasa.gov/planetary/apod?api_key={}'.format(TheKeys.nasa))
+    # if the request is not empty then put the information ina a dictionary
     if r != '{}':
         theDict = {'explanation': r.json()['explanation'],
                     'media_type': r.json()['media_type'],
                     'title': r.json()['title'],
                     'url': r.json()['url']
                     }
+    #else put in error message
     else:
         theDict = {'explanation': 'An error has occurred at nasas homepage.',
                     'media_type': 'error',
@@ -21,13 +24,14 @@ def nasa():
                     'url': 'NO ADRESS'
                     }
     return theDict
-
+# Debaser Here im getting info from debaser
 class Debaser():
     def __init__(self):
         tempdate = time()
         toDay = tempdate['date']
         toDay = ''.join(e for e in toDay if e.isalnum())
         toDay3 = int(toDay) + 3
+
         r = requests.get('http://www.debaser.se/debaser/api/?version=2&method=getevents&venue=&from={}&to={}&format=json'.format(toDay, toDay))
 
         if r.text != "":
@@ -48,7 +52,7 @@ class Debaser():
             self.ticketURL = 'http://www.aik.se'
             self.imageURL = ''
             self.eventURL = 'http://www.aik.se'
-
+# Get weather API
 class Weather():
     def __init__(self):
         r = requests.get('https://api.openweathermap.org/data/2.5/weather?q=Stockholm,se&appid={}'.format(TheKeys.weather))
@@ -58,7 +62,7 @@ class Weather():
         temp = round(x,2)
         self.temp = str(temp) + '\N{DEGREE SIGN} C'
         self.ort = r.json()['name']
-
+#Get the time
 def time():
     r = requests.get('http://worldtimeapi.org/api/timezone/Europe/Stockholm.json')
     json_obj = r.json()['datetime']
@@ -66,7 +70,7 @@ def time():
     theDate = json_obj[:10]
     theDict = {'time':theTime, 'date':theDate}
     return theDict
-
+# Get info avout two travels examples
 def sl():
     r = requests.get('http://api.sl.se/api2/realtimedeparturesV4.json?key={}&timewindow=30'.format(TheKeys.sl))
     json_obj1 = r.json()['ResponseData']['Trains'][0]
@@ -83,7 +87,7 @@ def sl():
     "Departs": json_obj2["DisplayTime"]}
     listResa = [resa1, resa2]
     return listResa
-
+# Get chuck API
 def chuck():
     r = requests.get('http://api.icndb.com/jokes/random')
     json_obj = r.json()
